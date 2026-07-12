@@ -60,19 +60,40 @@ document.addEventListener("DOMContentLoaded", () => {
   wire("[data-solscan]", CONFIG.solscanUrl);
   wire("[data-tg-link]", CONFIG.tgUrl);
 
-  /* ---- Nav: scrolled state + progress bar ---- */
+  /* ---- Scroll engine: nav, progress, parallax, flywheel (rAF-throttled) ---- */
   const nav = document.querySelector(".nav");
   const progress = document.getElementById("progress");
-  const onScroll = () => {
+  const scrollEls = [...document.querySelectorAll("[data-scroll]")];
+  const flySection = document.getElementById("flywheel");
+  const flySteps = [...document.querySelectorAll("#flySteps .fstep")];
+  const flyProg = document.getElementById("flyProg");
+  const FLY_C = 289; // 2*pi*46
+  let ticking = false;
+  const frame = () => {
+    ticking = false;
     const y = scrollY;
     nav && nav.classList.toggle("scrolled", y > 8);
-    if (progress) {
-      const h = document.documentElement.scrollHeight - innerHeight;
-      progress.style.width = (h > 0 ? (y / h) * 100 : 0) + "%";
+    if (progress) { const h = document.documentElement.scrollHeight - innerHeight; progress.style.width = (h > 0 ? (y / h) * 100 : 0) + "%"; }
+    if (!reduce) {
+      scrollEls.forEach((el) => {
+        const sp = +el.dataset.scroll || 0;
+        const r = el.getBoundingClientRect();
+        const off = r.top + r.height / 2 - innerHeight / 2;
+        el.style.transform = `translate3d(0, ${(off * sp).toFixed(1)}px, 0)`;
+      });
+    }
+    if (flySection && flyProg) {
+      const r = flySection.getBoundingClientRect();
+      let p = (innerHeight - r.top) / (innerHeight + r.height); // 0 entering → 1 leaving
+      p = Math.max(0, Math.min(1, p));
+      flyProg.style.strokeDashoffset = FLY_C * (1 - p);
+      flySteps.forEach((s) => s.classList.toggle("active", s.getBoundingClientRect().top < innerHeight * 0.72));
     }
   };
-  addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+  const requestFrame = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
+  addEventListener("scroll", requestFrame, { passive: true });
+  addEventListener("resize", requestFrame);
+  frame();
 
   /* ---- Mobile menu ---- */
   const burger = document.getElementById("burger");
@@ -121,11 +142,17 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(tick);
   };
 
-  /* ---- Reveal + counters (IO with scroll/load fallback) ---- */
-  const els = [...document.querySelectorAll(
-    ".card, .step, .tokcard, .tcell, .story, .ca, .faq__item, .phase, .checks, .fstep, .lcard, .lab, .terminal"
-  )];
-  els.forEach((el) => el.classList.add("reveal"));
+  /* ---- Reveal: directional + staggered (IO + scroll/load fallback) ---- */
+  const autoSel = ".head, .card, .step, .tokcard, .tcell, .story__text, .story__art, .ca, .faq__item, .phase, .checks li, .lcard, .lab__controls, .lab__out, .terminal, .quote__t, .quote__by, .buy__cta";
+  const els = [...new Set([...document.querySelectorAll("[data-reveal]"), ...document.querySelectorAll(autoSel)])];
+  const groupIdx = new Map();
+  els.forEach((el) => {
+    el.classList.add("reveal");
+    const p = el.parentElement;
+    const i = groupIdx.get(p) || 0;
+    el.style.setProperty("--rd", Math.min(i, 7) * 70 + "ms");
+    groupIdx.set(p, i + 1);
+  });
   const done = new WeakSet();
   const reveal = (el) => { if (done.has(el)) return; done.add(el); el.classList.add("in"); el.querySelectorAll("[data-count]").forEach(countUp); };
   const inView = (el) => { const r = el.getBoundingClientRect(); return r.top < innerHeight * 0.92 && r.bottom > 0; };
@@ -137,29 +164,92 @@ document.addEventListener("DOMContentLoaded", () => {
   addEventListener("scroll", scan, { passive: true });
   addEventListener("resize", scan);
   addEventListener("load", () => setTimeout(scan, 60));
-  // hero counters aren't in the observed set — kick them once
   document.querySelectorAll(".hero [data-count]").forEach(countUp);
   scan();
 
-  /* ---- Parallax (pointer + scroll), disabled for reduced motion / touch ---- */
+  /* ---- Pointer parallax via CSS vars (composes with centering/bob) ---- */
   const pxEls = [...document.querySelectorAll("[data-parallax]")];
-  if (!reduce && matchMedia("(pointer:fine)").matches) {
+  if (!reduce && pxEls.length && matchMedia("(pointer:fine)").matches) {
     let mx = 0, my = 0, tx = 0, ty = 0, raf = 0;
+    const loop = () => {
+      tx += (mx - tx) * 0.08; ty += (my - ty) * 0.08;
+      pxEls.forEach((el) => {
+        const d = +el.dataset.parallax || 12;
+        el.style.setProperty("--px", (tx * d).toFixed(1) + "px");
+        el.style.setProperty("--py", (ty * d).toFixed(1) + "px");
+      });
+      raf = (Math.abs(mx - tx) > 0.002 || Math.abs(my - ty) > 0.002) ? requestAnimationFrame(loop) : 0;
+    };
     addEventListener("pointermove", (e) => {
       mx = (e.clientX / innerWidth - 0.5) * 2;
       my = (e.clientY / innerHeight - 0.5) * 2;
       if (!raf) raf = requestAnimationFrame(loop);
     });
-    const loop = () => {
-      tx += (mx - tx) * 0.08; ty += (my - ty) * 0.08;
-      pxEls.forEach((el) => {
-        const d = +el.dataset.parallax || 12;
-        el.style.transform = `translate(${tx * d}px, ${ty * d}px)`;
-      });
-      if (Math.abs(mx - tx) > 0.001 || Math.abs(my - ty) > 0.001) raf = requestAnimationFrame(loop);
-      else raf = 0;
-    };
   }
+
+  /* ---- Magnetic buttons ---- */
+  if (!reduce && matchMedia("(pointer:fine)").matches) {
+    document.querySelectorAll("[data-magnetic]").forEach((b) => {
+      b.addEventListener("pointermove", (e) => {
+        const r = b.getBoundingClientRect();
+        b.style.transform = `translate(${((e.clientX - r.left) / r.width - 0.5) * 14}px, ${((e.clientY - r.top) / r.height - 0.5) * 18}px)`;
+      });
+      b.addEventListener("pointerleave", () => { b.style.transform = ""; });
+    });
+  }
+
+  /* ---- Hero candlestick chart ---- */
+  (function chart() {
+    const cv = document.getElementById("heroChart");
+    if (!cv || !cv.getContext) return;
+    const ctx = cv.getContext("2d");
+    const CW = 15, GAP = 9, STEP = CW + GAP;
+    const up = "rgba(47,125,84,.6)", dn = "rgba(180,134,63,.5)";
+    let W = 0, H = 0, price = 0, candles = [], off = 0, raf = 0;
+    const mk = () => {
+      const vol = H * 0.07, dir = Math.random() < 0.62 ? 1 : -1;
+      const open = price;
+      let close = open - dir * Math.random() * vol;
+      close = Math.max(H * 0.16, Math.min(H * 0.86, close));
+      const hi = Math.min(open, close) - Math.random() * vol * 0.6;
+      const lo = Math.max(open, close) + Math.random() * vol * 0.6;
+      price = close;
+      return { open, close, hi, lo, u: close < open };
+    };
+    const build = () => {
+      candles = []; price = H * 0.62;
+      const n = Math.ceil(W / STEP) + 2;
+      for (let i = 0; i < n; i++) candles.push(mk());
+    };
+    const paint = () => {
+      ctx.clearRect(0, 0, W, H);
+      for (let i = 0; i < candles.length; i++) {
+        const c = candles[i], x = i * STEP - off, cx = x + CW / 2;
+        ctx.strokeStyle = c.u ? up : dn; ctx.fillStyle = c.u ? up : dn; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(cx, c.hi); ctx.lineTo(cx, c.lo); ctx.stroke();
+        const top = Math.min(c.open, c.close), h = Math.max(2, Math.abs(c.close - c.open));
+        ctx.fillRect(x, top, CW, h);
+      }
+    };
+    const anim = () => {
+      off += 0.4;
+      if (off >= STEP) { off -= STEP; candles.push(mk()); candles.shift(); }
+      paint();
+      raf = requestAnimationFrame(anim);
+    };
+    const resize = () => {
+      const dpr = Math.min(2, devicePixelRatio || 1);
+      W = cv.clientWidth; H = cv.clientHeight;
+      if (!W || !H) return;
+      cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      build(); paint();
+    };
+    const restart = () => { cancelAnimationFrame(raf); resize(); if (!reduce && W && H) anim(); };
+    addEventListener("resize", restart);
+    addEventListener("load", () => { if (!W || !H) restart(); });
+    resize();
+    if (!reduce && W && H) anim();
+  })();
 
   /* ---- Market terminal: flip status to "online (pre-launch)" ---- */
   const mkt = document.getElementById("mktStatus");

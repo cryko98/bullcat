@@ -69,47 +69,51 @@
 
 <main>
 <!-- ==================== HERO ==================== -->
-<section class="hero">
-  <div class="hero__bg" aria-hidden="true">
+<section class="hero" id="hero">
+  <div class="hero__bg" aria-hidden="true" data-scroll="-0.18">
+    <canvas class="hero__chart" id="heroChart"></canvas>
     <span class="mesh mesh--1"></span>
     <span class="mesh mesh--2"></span>
     <span class="mesh mesh--3"></span>
-    <span class="grid"></span>
+    <span class="hero__grid"></span>
+    <span class="hero__vign"></span>
   </div>
 
-  <div class="hero__inner wrap">
-    <div class="hero__copy">
-      <span class="eyebrow"><span class="live-dot"></span> the movement is live · solana</span>
-      <h1 class="hero__title">Teary eyes,<br/><span class="grad">bullish</span> heart.</h1>
-      <p class="hero__lead">
-        Meet Bull Cat — the most emotional warrior on Solana. Horns of a bull,
-        heart of a crying kitten. He wiped the tears, buckled the helmet, and
-        went hunting for the greenest god-candle on the chart.
-      </p>
+  <div class="hero__wrap wrap">
+    <span class="eyebrow reveal" data-reveal="down"><span class="live-dot"></span> the movement is live · solana</span>
 
-      <div class="hero__actions">
-        <a href="#buy" class="btn btn--green btn--lg">Buy on pump.fun ›</a>
-        <a href="#flywheel" class="btn btn--ghost btn--lg">See how it works</a>
+    <div class="hero__stage">
+      <h1 class="wordmark" aria-label="Bull Cat">
+        <span class="wm wm--top reveal" data-reveal="left">BULL</span>
+        <span class="wm wm--bot reveal" data-reveal="right">CAT</span>
+      </h1>
+
+      <div class="hero__catlayer" data-parallax="20">
+        <span class="hero__halo" aria-hidden="true"></span>
+        <img src="assets/bullcatt.png" alt="Bull Cat — a crying kitten in a horned bull helmet" class="hero__cat" />
+        <span class="tear tear--1" aria-hidden="true"></span>
+        <span class="tear tear--2" aria-hidden="true"></span>
       </div>
 
-      <div class="hero__mini">
-        <div class="mini"><b data-count="1000000000">0</b><span>Supply</span></div>
-        <div class="mini"><b>0 / 0</b><span>Tax</span></div>
-        <div class="mini"><b>Burned</b><span>Liquidity</span></div>
+      <div class="seal" aria-hidden="true">
+        <svg class="seal__ring" viewBox="0 0 120 120">
+          <defs><path id="sealPath" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs>
+          <text><textPath href="#sealPath" startOffset="0">· TEARY EYES · BULLISH HEART · $BULLCAT · TIME TO SEND IT </textPath></text>
+        </svg>
+        <span class="seal__mid">EST<br/>’26</span>
       </div>
     </div>
 
-    <div class="hero__art" id="heroArt">
-      <span class="halo" aria-hidden="true"></span>
-      <span class="orbit" aria-hidden="true"></span>
-      <img src="assets/bullcatt.png" alt="Bull Cat — a crying kitten in a horned bull helmet" class="hero__cat" data-parallax="18" />
-      <span class="tear tear--1" aria-hidden="true"></span>
-      <span class="tear tear--2" aria-hidden="true"></span>
-      <div class="floatcard floatcard--a" data-parallax="34">
-        <span class="fc__k">mood</span><b class="fc__v">bullish</b>
+    <div class="hero__foot">
+      <p class="hero__tag reveal" data-reveal="up">The most emotional warrior on Solana. <b>Teary eyes, bullish heart — time to send it.</b></p>
+      <div class="hero__actions reveal" data-reveal="up">
+        <a href="#buy" class="btn btn--green btn--lg" data-magnetic>Buy on pump.fun ›</a>
+        <a href="#flywheel" class="btn btn--ghost btn--lg" data-magnetic>See how it works</a>
       </div>
-      <div class="floatcard floatcard--b" data-parallax="26">
-        <span class="fc__k">status</span><b class="fc__v">holding</b>
+      <div class="hero__mini reveal" data-reveal="up">
+        <div class="mini"><b data-count="1000000000">0</b><span>Supply</span></div>
+        <div class="mini"><b>0 / 0</b><span>Tax</span></div>
+        <div class="mini"><b>Burned</b><span>Liquidity</span></div>
       </div>
     </div>
   </div>
@@ -232,9 +236,13 @@
       <div class="fly__wheel" aria-hidden="true">
         <span class="fly__ring"></span>
         <span class="fly__ring fly__ring--2"></span>
+        <svg class="fly__prog" viewBox="0 0 100 100">
+          <circle class="fly__prog-bg" cx="50" cy="50" r="46"/>
+          <circle class="fly__prog-fg" id="flyProg" cx="50" cy="50" r="46"/>
+        </svg>
         <img src="assets/bullcatt.png" alt="" class="fly__cat" />
       </div>
-      <ol class="fly__steps">
+      <ol class="fly__steps" id="flySteps">
         <li class="fstep"><span class="fstep__n">01</span><div><h3>The dip hits</h3><p>Red candles. The bears mess up his hair. Bull Cat sheds a single, proud tear.</p></div></li>
         <li class="fstep"><span class="fstep__n">02</span><div><h3>The herd holds</h3><p>Nobody panic sells. Diamond paws lock in. Belief turns into conviction.</p></div></li>
         <li class="fstep"><span class="fstep__n">03</span><div><h3>The herd pumps</h3><p>We buy together, meme together, raid the timeline together. Momentum builds.</p></div></li>
