@@ -167,28 +167,19 @@ b{ font-weight:700; }
 .wm--top{ -webkit-text-stroke:2px var(--ink); }
 .wm--bot{ background:linear-gradient(125deg,var(--amber),#7d5026); -webkit-background-clip:text; background-clip:text; }
 
-.hero__col--art{ position:relative; display:grid; place-items:center; min-height:440px; }
-.hero__reveal{ position:relative; z-index:2; width:min(460px,94%); }
+.hero__col--art{ position:relative; display:grid; place-items:center; min-height:480px; }
+.hero__reveal{ position:relative; z-index:2; width:min(520px,100%); }
 .hero__catlayer{ position:relative; width:100%; transform:translate(var(--px,0px), var(--py,0px)); will-change:transform; }
 .hero__halo{ position:absolute; left:50%; top:50%; width:120%; aspect-ratio:1; transform:translate(-50%,-50%);
   border-radius:50%; background:radial-gradient(circle,rgba(199,155,84,.34),transparent 62%); filter:blur(6px); }
 .hero__cat{ position:relative; z-index:1; width:100%; filter:drop-shadow(0 26px 32px rgba(42,33,24,.42)); animation:bob 5s ease-in-out infinite; }
 
-/* --- rise-from-behind-the-coin reveal on boot --- */
+/* --- float-in reveal on boot --- */
 .hero__reveal{ transform:translateY(0); }
-.booted .hero__reveal{ animation:riseUp 1.15s cubic-bezier(.16,.84,.3,1) .38s both; }
-@keyframes riseUp{ 0%{ transform:translateY(180px) scale(.94); opacity:0; } 30%{ opacity:1; } 100%{ transform:translateY(0) scale(1); opacity:1; } }
-.hero__coin{ position:absolute; z-index:3; bottom:4%; left:50%; transform:translateX(-50%);
-  width:150px; height:150px; border-radius:50%; display:grid; place-items:center;
-  background:radial-gradient(circle at 50% 34%, var(--card), var(--card-2));
-  border:3px solid var(--gold);
-  box-shadow:0 12px 24px rgba(42,33,24,.22), inset 0 2px 7px rgba(255,255,255,.6), inset 0 -7px 15px rgba(180,134,63,.28);
-  font-family:var(--f-disp); font-weight:700; font-size:.94rem; color:var(--gold-2); letter-spacing:.02em; }
-.booted .hero__coin{ animation:coinIn .6s cubic-bezier(.2,.9,.3,1.25) .05s both; }
-@keyframes coinIn{ 0%{ transform:translateX(-50%) scale(0) rotate(-45deg); opacity:0; } 100%{ transform:translateX(-50%) scale(1) rotate(0); opacity:1; } }
+.booted .hero__reveal{ animation:floatIn 1s cubic-bezier(.16,.84,.3,1) .1s both; }
+@keyframes floatIn{ 0%{ transform:translateY(46px) scale(.9); opacity:0; } 100%{ transform:translateY(0) scale(1); opacity:1; } }
 /* safety net after the reveal finishes — force the resting, visible state */
 .reveal-done .hero__reveal{ animation:none; transform:translateY(0); opacity:1; }
-.reveal-done .hero__coin{ animation:none; transform:translateX(-50%); opacity:1; }
 @keyframes bob{ 0%,100%{ transform:translateY(0) rotate(-1.2deg);} 50%{ transform:translateY(-14px) rotate(1.2deg);} }
 .tear{ position:absolute; z-index:2; width:12px; height:18px; background:#79b7d2; border-radius:60% 60% 50% 50%/80% 80% 40% 40%; opacity:0; }
 .tear--1{ top:28%; left:40%; animation:drop 3.6s ease-in .6s infinite; }
@@ -501,8 +492,7 @@ b{ font-weight:700; }
   .tokcard b{ font-size:2.2rem; }
   .meme__ggrid{ grid-template-columns:1fr; }
   .seal{ display:none; }
-  .hero__reveal{ width:min(300px,78vw); }
-  .hero__coin{ width:112px; height:112px; font-size:.78rem; }
+  .hero__reveal{ width:min(340px,88vw); }
   .wm{ -webkit-text-stroke-width:1.5px; }
 }
 @media (prefers-reduced-motion:reduce){
