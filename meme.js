@@ -115,17 +115,22 @@
     } catch (_) { /* keep direct link (opens in new tab) */ }
   };
 
-  /* ---- Poll the queue job ---- */
-  const poll = async (id, tries) => {
-    if (tries > 45) { fail("This one took too long — please try again."); return; }
+  /* ---- Poll the queue job (up to ~2.5 min) ---- */
+  const poll = async (job, tries) => {
+    if (tries > 75) { fail("This one took too long — please try again."); return; }
     try {
-      const r = await fetch("/api/status?id=" + encodeURIComponent(id));
+      const qs = "s=" + encodeURIComponent(job.statusUrl || "") + "&r=" + encodeURIComponent(job.resultUrl || "") +
+                 (job.id ? "&id=" + encodeURIComponent(job.id) : "");
+      const r = await fetch("/api/status?" + qs);
       const d = await r.json().catch(() => ({}));
       if (r.status === 501) { fail(d.error || "The generator isn't configured yet."); return; }
       if (d.status === "COMPLETED" && d.image) { showResult(d.image); return; }
-      if (d.status === "FAILED" || d.status === "ERROR") { fail("Generation failed — try a different prompt."); return; }
-      setTimeout(() => poll(id, tries + 1), 1600);
-    } catch (_) { setTimeout(() => poll(id, tries + 1), 2200); }
+      if (d.status === "FAILED" || d.status === "ERROR") {
+        fail(d.error ? "Generation failed: " + d.error : "Generation failed — try a different prompt.");
+        return;
+      }
+      setTimeout(() => poll(job, tries + 1), 2000);
+    } catch (_) { setTimeout(() => poll(job, tries + 1), 2500); }
   };
 
   /* ---- Generate ---- */
@@ -143,7 +148,7 @@
       const d = await r.json().catch(() => ({}));
       if (r.status === 501) { fail(d.error || "The meme generator isn't live yet — check back at launch."); return; }
       if (!r.ok || !d.id) { fail(d.error || "Couldn't start the generation. Try again."); return; }
-      poll(d.id, 0);
+      poll(d, 0);
     } catch (_) {
       fail("Network error — is the generator API deployed?");
     }

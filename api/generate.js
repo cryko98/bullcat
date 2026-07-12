@@ -1,6 +1,11 @@
 // POST /api/generate  — submit a Bull Cat meme edit to fal.ai (FLUX Kontext).
 // The FAL key is read from the FAL_KEY environment variable and never sent to
-// the browser. Returns { id } (a fal queue request id) for the client to poll.
+// the browser. Returns { id, statusUrl, resultUrl } — the client polls status.
+//
+// IMPORTANT: fal's queue exposes status/result under the *base app* path
+// (fal-ai/flux-pro), NOT the endpoint subpath (fal-ai/flux-pro/kontext).
+// So we return the status_url / response_url fal gives us and poll those
+// verbatim instead of reconstructing them.
 
 const FAL_KEY = process.env.FAL_KEY;
 const MODEL = "fal-ai/flux-pro/kontext";
@@ -32,20 +37,27 @@ module.exports = async function handler(req, res) {
       body: JSON.stringify({
         prompt,
         image_url: image,
-        num_images: 1,
         guidance_scale: 3.5,
         output_format: "jpeg",
-        safety_tolerance: "5",
+        safety_tolerance: "6", // most permissive — a crying cat shouldn't be blocked
       }),
     });
 
     const data = await falRes.json().catch(() => ({}));
-    if (!falRes.ok) {
-      res.status(falRes.status).json({ error: data?.detail || "fal.ai rejected the request.", detail: data });
+    if (!falRes.ok || !data.request_id) {
+      res.status(falRes.ok ? 502 : falRes.status).json({
+        error: (data && (data.detail || data.error)) || "fal.ai rejected the request.",
+        detail: data,
+      });
       return;
     }
-    res.status(200).json({ id: data.request_id });
+
+    res.status(200).json({
+      id: data.request_id,
+      statusUrl: data.status_url || null,
+      resultUrl: data.response_url || null,
+    });
   } catch (err) {
-    res.status(500).json({ error: "Server error while contacting fal.ai." });
+    res.status(500).json({ error: "Server error contacting fal.ai: " + ((err && err.message) || err) });
   }
 };
