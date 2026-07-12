@@ -30,7 +30,13 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
     "<span class='dim'>> teary eyes, bullish heart. time to send it.</span>",
   ];
 
-  const finish = () => { boot.classList.add("done"); document.body.style.overflow = ""; };
+  const finish = () => {
+    boot.classList.add("done");
+    document.documentElement.classList.add("booted"); // fires the hero rise-from-coin reveal
+    document.body.style.overflow = "";
+    // safety net: guarantee the hero is visible even if the reveal animation glitches
+    setTimeout(() => document.documentElement.classList.add("reveal-done"), 2100);
+  };
   document.body.style.overflow = "hidden";
   skip && skip.addEventListener("click", finish);
 
