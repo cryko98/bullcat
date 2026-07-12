@@ -8,10 +8,17 @@ Official landing page for the $BULLCAT memecoin, launching on
 
 ## Design
 
-Cream editorial zine meets dark on-chain terminal — a monospace-driven system
-(JetBrains Mono / Space Mono headings, Inter body) with a boot-up intro,
-scanline terminal sections, `> key : value` command blocks, live-style stat
-readouts with count-up, and alternating warm-cream / terminal-black bands.
+A cohesive, warm, low-contrast system — cream / espresso / muted-green / gold
+(Space Grotesk display, Inter body, Space Mono for data) — layered with
+on-chain-terminal functionality. Highlights:
+
+- Boot-up intro sequence + full-page scroll-progress bar
+- Layered animated hero (gradient mesh, grid, orbit, pointer parallax, floating cards)
+- Live **market terminal** panel (price / volume / liquidity / mcap) ready to wire on launch
+- Animated **flywheel** (tears → hold → pump → god-candle loop)
+- **Dream calculator** — pick a target market cap, get token price and bag value
+- Tokenomics with count-up + copy-to-clipboard contract address
+- Timeline **roadmap** with status badges, listings grid, FAQ
 
 ## Stack
 
@@ -20,9 +27,9 @@ instantly and hosts anywhere (GitHub Pages, Vercel, Netlify, Cloudflare Pages).
 
 ```
 index.html    markup and content
-styles.css    cream-editorial x terminal design system
-script.js     boot intro, mobile menu, copy-address, count-up, scroll reveal
-assets/       logo + character art (also used as favicon)
+styles.css    warm layered design system
+script.js     boot, progress, parallax, count-up, calculator, copy, reveal, menu
+assets/       transparent logo / character art (also used as favicon)
 ```
 
 ## Run locally
@@ -36,10 +43,11 @@ python -m http.server 8000
 
 ## Configure before launch
 
-Two placeholders need real values when the token goes live:
+Fill these in when the token goes live:
 
-1. **X (Twitter) link + pump.fun link** — set `CONFIG.xUrl` and `CONFIG.pumpUrl`
-   at the top of `script.js`.
+1. **Links** — set `CONFIG.xUrl`, `CONFIG.pumpUrl`, `CONFIG.chartUrl`,
+   `CONFIG.solscanUrl` and `CONFIG.tgUrl` at the top of `script.js`. Every
+   matching button/card wires up automatically; until then they stay inert.
 2. **Contract address** — replace the `data-ca` value on `#caText` in
    `index.html` (and its visible text) with the real CA.
 

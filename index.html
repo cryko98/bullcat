@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>The Bull Cat ($BULLCAT) — Teary Eyes, Bullish Heart</title>
 <meta name="description" content="Meet Bull Cat, the most emotional warrior on the Solana network. Horns of a bull, heart of a crying kitten. Teary eyes, bullish heart — time to send it." />
-<meta name="theme-color" content="#0b0b0c" />
+<meta name="theme-color" content="#2b2016" />
 
 <meta property="og:title" content="The Bull Cat | $BULLCAT" />
 <meta property="og:description" content="The most emotional warrior on Solana. Teary eyes, bullish heart. Time to send it." />
@@ -18,91 +18,106 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;0,800;1,500&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
 <link rel="stylesheet" href="styles.css" />
 <noscript><style>.reveal{opacity:1!important;transform:none!important}.boot{display:none!important}</style></noscript>
 </head>
 <body>
 
-<!-- ====================== BOOT / LOADER ====================== -->
+<!-- ==================== BOOT ==================== -->
 <div class="boot" id="boot" aria-hidden="true">
-  <div class="boot__scan"></div>
+  <div class="boot__grain"></div>
   <div class="boot__inner">
+    <img src="assets/bullcatlogo.png" alt="" class="boot__cat" />
     <pre class="boot__log" id="bootLog"></pre>
     <div class="boot__bar"><span id="bootBar"></span></div>
-    <button class="boot__skip" id="bootSkip">SKIP INTRO ›</button>
+    <button class="boot__skip" id="bootSkip">skip intro ›</button>
   </div>
 </div>
 
-<!-- ====================== NAV ====================== -->
+<!-- scroll progress -->
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- ==================== NAV ==================== -->
 <header class="nav" id="top">
   <div class="nav__inner">
     <a href="#top" class="brand" aria-label="The Bull Cat home">
       <img src="assets/bullcatlogo.png" alt="Bull Cat" class="brand__logo" />
-      <span class="brand__name">BULL<span class="brand__slash">/</span>CAT</span>
+      <span class="brand__name">Bull<span class="brand__dot">·</span>Cat</span>
     </a>
 
     <nav class="nav__links" id="navLinks" aria-label="Primary">
-      <a href="#terminal">// stats</a>
-      <a href="#about">// why</a>
-      <a href="#story">// lore</a>
-      <a href="#tokenomics">// tokenomics</a>
-      <a href="#buy">// buy</a>
-      <a href="#faq">// faq</a>
+      <a href="#market">Market</a>
+      <a href="#about">Why</a>
+      <a href="#flywheel">Flywheel</a>
+      <a href="#tokenomics">Tokenomics</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#buy">Buy</a>
     </nav>
 
     <div class="nav__cta">
       <a href="#" class="icon-btn" data-x-link aria-label="Follow on X" title="X (soon)">
-        <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M18.244 2H21.5l-7.5 8.57L23 22h-6.94l-5.43-7.1L4.4 22H1.14l8.02-9.17L1 2h7.11l4.9 6.48L18.244 2Zm-1.22 18h1.92L7.06 4H5l12.02 16Z"/></svg>
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M18.244 2H21.5l-7.5 8.57L23 22h-6.94l-5.43-7.1L4.4 22H1.14l8.02-9.17L1 2h7.11l4.9 6.48L18.244 2Zm-1.22 18h1.92L7.06 4H5l12.02 16Z"/></svg>
       </a>
-      <a href="#buy" class="btn btn--green btn--sm">buy $BULLCAT</a>
+      <a href="#buy" class="btn btn--green btn--sm">Buy $BULLCAT</a>
     </div>
 
-    <button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
 
 <main>
-<!-- ====================== HERO ====================== -->
+<!-- ==================== HERO ==================== -->
 <section class="hero">
-  <div class="hero__grid wrap">
+  <div class="hero__bg" aria-hidden="true">
+    <span class="mesh mesh--1"></span>
+    <span class="mesh mesh--2"></span>
+    <span class="mesh mesh--3"></span>
+    <span class="grid"></span>
+  </div>
+
+  <div class="hero__inner wrap">
     <div class="hero__copy">
-      <span class="tag"><span class="dot"></span> the movement is live // solana</span>
-      <h1 class="hero__title">teary eyes,<br/><span class="mark">bullish</span> heart.</h1>
+      <span class="eyebrow"><span class="live-dot"></span> the movement is live · solana</span>
+      <h1 class="hero__title">Teary eyes,<br/><span class="grad">bullish</span> heart.</h1>
       <p class="hero__lead">
         Meet Bull Cat — the most emotional warrior on Solana. Horns of a bull,
         heart of a crying kitten. He wiped the tears, buckled the helmet, and
         went hunting for the greenest god-candle on the chart.
       </p>
 
-      <pre class="term term--hero" aria-hidden="true"><span class="term__row"><b>&gt; ticker&nbsp;&nbsp;</b>: $BULLCAT</span>
-<span class="term__row"><b>&gt; network&nbsp;</b>: solana</span>
-<span class="term__row"><b>&gt; tax&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>: 0 / 0</span>
-<span class="term__row"><b>&gt; mood&nbsp;&nbsp;&nbsp;&nbsp;</b>: teary but bullish</span>
-<span class="term__row"><b>&gt; creed&nbsp;&nbsp;&nbsp;</b>: send it<span class="cursor">_</span></span></pre>
-
       <div class="hero__actions">
-        <a href="#buy" class="btn btn--green">buy on pump.fun ›</a>
-        <a href="#story" class="btn btn--outline">read the lore</a>
+        <a href="#buy" class="btn btn--green btn--lg">Buy on pump.fun ›</a>
+        <a href="#flywheel" class="btn btn--ghost btn--lg">See how it works</a>
+      </div>
+
+      <div class="hero__mini">
+        <div class="mini"><b data-count="1000000000">0</b><span>Supply</span></div>
+        <div class="mini"><b>0 / 0</b><span>Tax</span></div>
+        <div class="mini"><b>Burned</b><span>Liquidity</span></div>
       </div>
     </div>
 
-    <div class="hero__art">
-      <div class="hero__ring" aria-hidden="true"></div>
-      <div class="hero__glow" aria-hidden="true"></div>
-      <img src="assets/bullcatlogo.png" alt="Bull Cat — a crying kitten in a horned bull helmet" class="hero__cat" />
+    <div class="hero__art" id="heroArt">
+      <span class="halo" aria-hidden="true"></span>
+      <span class="orbit" aria-hidden="true"></span>
+      <img src="assets/bullcatlogo.png" alt="Bull Cat — a crying kitten in a horned bull helmet" class="hero__cat" data-parallax="18" />
       <span class="tear tear--1" aria-hidden="true"></span>
       <span class="tear tear--2" aria-hidden="true"></span>
-      <div class="chip chip--tl">held the dip too long</div>
-      <div class="chip chip--br">diamond paws</div>
+      <div class="floatcard floatcard--a" data-parallax="34">
+        <span class="fc__k">mood</span><b class="fc__v">bullish</b>
+      </div>
+      <div class="floatcard floatcard--b" data-parallax="26">
+        <span class="fc__k">status</span><b class="fc__v">holding</b>
+      </div>
     </div>
   </div>
+
+  <a href="#market" class="scrollcue" aria-hidden="true"><span></span>scroll</a>
 </section>
 
-<!-- ====================== MARQUEE ====================== -->
+<!-- ==================== MARQUEE ==================== -->
 <div class="tape" aria-hidden="true">
   <div class="tape__track">
     <span>$BULLCAT</span><em>teary eyes, bullish heart</em>
@@ -114,200 +129,220 @@
   </div>
 </div>
 
-<!-- ====================== TERMINAL / STATS ====================== -->
-<section class="section section--night" id="terminal">
-  <div class="scanlines" aria-hidden="true"></div>
+<!-- ==================== LIVE MARKET TERMINAL ==================== -->
+<section class="section" id="market">
   <div class="wrap">
-    <div class="head head--light">
+    <div class="head">
       <span class="kicker">// live terminal</span>
-      <h2>the state of the herd</h2>
+      <h2>Market terminal</h2>
+      <p class="head__sub">Real-time readouts wire up automatically the moment $BULLCAT is live on-chain.</p>
     </div>
 
-    <div class="stats">
-      <div class="stat">
-        <span class="stat__key">TICKER</span>
-        <b class="stat__val">$BULLCAT</b>
-        <span class="stat__sub">the emotional index</span>
+    <div class="terminal">
+      <div class="terminal__bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="terminal__title">bullcat@solana ~ market</span>
+        <span class="terminal__badge" id="mktStatus">● connecting</span>
       </div>
-      <div class="stat">
-        <span class="stat__key">NETWORK</span>
-        <b class="stat__val">SOLANA</b>
-        <span class="stat__sub">fast, cheap, fair</span>
+      <div class="terminal__grid">
+        <div class="tcell"><span class="tcell__k">PRICE USD</span><b class="tcell__v" data-live>—</b><span class="tcell__d">awaiting launch</span></div>
+        <div class="tcell"><span class="tcell__k">24H VOLUME</span><b class="tcell__v" data-live>—</b><span class="tcell__d">awaiting launch</span></div>
+        <div class="tcell"><span class="tcell__k">LIQUIDITY</span><b class="tcell__v" data-live>—</b><span class="tcell__d">awaiting launch</span></div>
+        <div class="tcell"><span class="tcell__k">MARKET CAP</span><b class="tcell__v" data-live>—</b><span class="tcell__d">awaiting launch</span></div>
       </div>
-      <div class="stat">
-        <span class="stat__key">SUPPLY</span>
-        <b class="stat__val" data-count="1000000000" data-suffix="">0</b>
-        <span class="stat__sub">1B cats, no more</span>
-      </div>
-      <div class="stat">
-        <span class="stat__key">TAX</span>
-        <b class="stat__val">0 / 0</b>
-        <span class="stat__sub">buy / sell</span>
+      <div class="terminal__foot">
+        <pre class="cmd"><span>$</span> bullcat --status<span class="cursor">_</span></pre>
+        <div class="terminal__links">
+          <a href="#" class="tlink" data-chart-link>Open chart ›</a>
+          <a href="#buy" class="tlink tlink--solid">Buy now ›</a>
+        </div>
       </div>
     </div>
-
-    <p class="term term--wide">
-      <span class="term__row"><b>$</b> bullcat --status</span>
-      <span class="term__row muted">launching fair on pump.fun · no presale · no team allocation · lp burned</span>
-      <span class="term__row green">herd status: BULLISH<span class="cursor">_</span></span>
-    </p>
   </div>
 </section>
 
-<!-- ====================== WHY / ABOUT ====================== -->
-<section class="section" id="about">
+<!-- ==================== WHY ==================== -->
+<section class="section section--tint" id="about">
   <div class="wrap">
     <div class="head">
       <span class="kicker">// why bull cat</span>
-      <h2>a furry little tank<br/>with a very big heart</h2>
+      <h2>A furry little tank<br/>with a very big heart</h2>
     </div>
 
     <div class="grid-3">
       <article class="card">
         <span class="card__idx">01</span>
-        <h3>emotional, not weak</h3>
+        <div class="card__ic"><svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M12 21s-7.5-4.6-10-9.6C.7 8 2.6 4.5 6 4.5c2 0 3.3 1 4 2 .7-1 2-2 4-2 3.4 0 5.3 3.5 4 6.9-2.5 5-10 9.6-10 9.6Z"/></svg></div>
+        <h3>Emotional, not weak</h3>
         <p>He isn't crying because he's fragile. He's crying because he held the dip for way too long. Watery eyes, diamond paws.</p>
       </article>
       <article class="card">
         <span class="card__idx">02</span>
-        <h3>built to pump</h3>
+        <div class="card__ic"><svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M3 17l6-6 4 4 8-8v6h-2V14l-6 6-4-4-4 4H3v-3Z"/></svg></div>
+        <h3>Built to pump</h3>
         <p>The bears made him cry and the market messed up his hair — so he strapped the helmet on and decided to become a green candle instead.</p>
       </article>
       <article class="card">
         <span class="card__idx">03</span>
-        <h3>owned by the herd</h3>
+        <div class="card__ic"><svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M16 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm-8 0a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-2.7 0-8 1.3-8 4v3h9v-3c0-1 .4-1.9 1-2.6A13 13 0 0 0 8 13Zm8 0a12 12 0 0 0-1.9.2A5 5 0 0 1 16 17v3h8v-3c0-2.7-5.3-4-8-4Z"/></svg></div>
+        <h3>Owned by the herd</h3>
         <p>No VCs, no insiders, no silent allocations. Just an emotional community that cries together, laughs together, and pumps together.</p>
       </article>
     </div>
 
     <ul class="checks">
-      <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span> 100% fair launched on pump.fun</li>
-      <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span> zero tax, forever</li>
-      <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span> liquidity pool burned</li>
-      <li><span class="check" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span> 100% cat, 0% roadmap fluff</li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span> 100% fair launched on pump.fun</li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span> Zero tax, forever</li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span> Liquidity pool burned</li>
+      <li><span class="ck"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span> Verifiable on-chain</li>
     </ul>
   </div>
 </section>
 
-<!-- ====================== LORE ====================== -->
-<section class="section section--night section--lore" id="story">
-  <div class="scanlines" aria-hidden="true"></div>
+<!-- ==================== LORE ==================== -->
+<section class="section" id="lore">
   <div class="wrap story">
     <div class="story__art">
-      <img src="assets/bullcatlogo.png" alt="Bull Cat portrait" class="story__img" />
-      <div class="story__tag">// exhibit_01.png</div>
+      <span class="story__halo" aria-hidden="true"></span>
+      <img src="assets/bullcatlogo.png" alt="Bull Cat portrait" class="story__img" data-parallax="12" />
+      <div class="story__tag">exhibit_01</div>
     </div>
     <div class="story__text">
       <span class="kicker">// the lore</span>
-      <h2>the warrior who<br/>feels everything</h2>
-      <p>
-        Meet Bull Cat, the most emotional warrior on the Solana network. Blessed
-        with the horns and hooves of a bull, but cursed with the fragile heart
-        of a crying kitten.
-      </p>
-      <p>
-        He's tired of the market messing up his hair and the bears making him
-        cry. This little furry tank has officially buckled up his helmet, wiped
-        away his tears, and is ready to become the greenest god-candle on the chart.
-      </p>
-      <p>
-        He's not crying because he's weak — he's crying because he held the dip
-        for way too long. Bull Cat is the ultimate crypto community: we cry
-        together, we laugh together, but we <b>pump together</b>.
-      </p>
-      <a href="#buy" class="btn btn--green">join the herd ›</a>
+      <h2>The warrior who<br/>feels everything</h2>
+      <p>Meet Bull Cat, the most emotional warrior on the Solana network. Blessed with the horns and hooves of a bull, but cursed with the fragile heart of a crying kitten.</p>
+      <p>He's tired of the market messing up his hair and the bears making him cry. This little furry tank has buckled up his helmet, wiped away his tears, and is ready to become the greenest god-candle on the chart.</p>
+      <p>He's not crying because he's weak — he's crying because he held the dip for way too long. We cry together, we laugh together, but we <b>pump together</b>.</p>
+      <a href="#buy" class="btn btn--green">Join the herd ›</a>
     </div>
   </div>
 </section>
 
-<!-- ====================== PULL QUOTE ====================== -->
-<section class="quote">
+<!-- ==================== FLYWHEEL ==================== -->
+<section class="section section--dark" id="flywheel">
+  <div class="scan" aria-hidden="true"></div>
   <div class="wrap">
-    <p class="quote__text">"i don't fear red candles.<br/>i cry <span class="mark">through</span> them."</p>
-    <span class="quote__by">— bull cat, probably</span>
+    <div class="head head--light">
+      <span class="kicker">// the flywheel</span>
+      <h2>From tears to god-candles</h2>
+      <p class="head__sub">Every dip feeds the loop. Emotion in, green candles out — the herd compounds forward.</p>
+    </div>
+
+    <div class="fly">
+      <div class="fly__wheel" aria-hidden="true">
+        <span class="fly__ring"></span>
+        <span class="fly__ring fly__ring--2"></span>
+        <img src="assets/bullcatlogo.png" alt="" class="fly__cat" />
+      </div>
+      <ol class="fly__steps">
+        <li class="fstep"><span class="fstep__n">01</span><div><h3>The dip hits</h3><p>Red candles. The bears mess up his hair. Bull Cat sheds a single, proud tear.</p></div></li>
+        <li class="fstep"><span class="fstep__n">02</span><div><h3>The herd holds</h3><p>Nobody panic sells. Diamond paws lock in. Belief turns into conviction.</p></div></li>
+        <li class="fstep"><span class="fstep__n">03</span><div><h3>The herd pumps</h3><p>We buy together, meme together, raid the timeline together. Momentum builds.</p></div></li>
+        <li class="fstep"><span class="fstep__n">04</span><div><h3>God-candle</h3><p>Tears become the greenest candle on the chart. Then the loop begins again.</p></div></li>
+      </ol>
+    </div>
   </div>
 </section>
 
-<!-- ====================== TOKENOMICS ====================== -->
-<section class="section" id="tokenomics">
+<!-- ==================== TOKENOMICS ==================== -->
+<section class="section section--tint" id="tokenomics">
   <div class="wrap">
     <div class="head">
       <span class="kicker">// the numbers</span>
-      <h2>tokenomeownics</h2>
-      <p class="head__sub">fair launch on pump.fun. no presale, no team bag, no games — just Bull Cat and his herd.</p>
+      <h2>Tokenomics</h2>
+      <p class="head__sub">Fair launch on pump.fun. No presale, no team bag, no games — just Bull Cat and his herd.</p>
     </div>
 
     <div class="grid-3 tok">
-      <div class="tokcard">
-        <b>1B</b>
-        <span class="tokcard__label">total supply</span>
-        <span class="tokcard__note">one billion cats. no more, no less.</span>
-      </div>
-      <div class="tokcard">
-        <b>0 / 0</b>
-        <span class="tokcard__label">buy / sell tax</span>
-        <span class="tokcard__note">the cat doesn't believe in taxes.</span>
-      </div>
-      <div class="tokcard">
-        <b>100%</b>
-        <span class="tokcard__label">in the pool</span>
-        <span class="tokcard__note">lp burned. keys in the litter box.</span>
-      </div>
+      <div class="tokcard"><b data-count="1000000000">0</b><span class="tokcard__l">total supply</span><span class="tokcard__n">one billion cats. no more, no less.</span></div>
+      <div class="tokcard"><b>0 / 0</b><span class="tokcard__l">buy / sell tax</span><span class="tokcard__n">the cat doesn't believe in taxes.</span></div>
+      <div class="tokcard"><b>100%</b><span class="tokcard__l">in the pool</span><span class="tokcard__n">lp burned. keys in the litter box.</span></div>
     </div>
 
     <div class="ca">
-      <span class="ca__label">// contract address</span>
+      <span class="ca__l">// contract address</span>
       <div class="ca__row">
         <code id="caText" data-ca="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</code>
-        <button class="btn btn--dark btn--sm" id="copyCa" aria-label="Copy contract address">
+        <button class="btn btn--solid btn--sm" id="copyCa" aria-label="Copy contract address">
           <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1Zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Zm0 16H8V7h11v14Z"/></svg>
           <span id="copyLabel">copy</span>
         </button>
       </div>
-      <small class="ca__hint">live at launch. always verify the CA from our official X before buying.</small>
+      <small class="ca__hint">Live at launch. Always verify the CA from our official X before buying.</small>
     </div>
   </div>
 </section>
 
-<!-- ====================== ROADMAP ====================== -->
-<section class="section section--paper2" id="roadmap">
+<!-- ==================== PRICE LAB ==================== -->
+<section class="section" id="lab">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker">// for fun only</span>
+      <h2>The dream calculator</h2>
+      <p class="head__sub">Pure irrational math for your next god-candle daydream. Not a price target, not advice.</p>
+    </div>
+
+    <div class="lab">
+      <div class="lab__controls">
+        <label class="lab__field">
+          <span>Your $BULLCAT bag</span>
+          <input type="text" inputmode="numeric" id="labBag" value="10,000,000" aria-label="Your BULLCAT holdings" />
+        </label>
+        <div class="lab__mcs" role="group" aria-label="Target market cap">
+          <button class="mc" data-mc="1000000">$1M</button>
+          <button class="mc is-active" data-mc="10000000">$10M</button>
+          <button class="mc" data-mc="100000000">$100M</button>
+          <button class="mc" data-mc="1000000000">$1B</button>
+        </div>
+      </div>
+      <div class="lab__out">
+        <div class="lab__row"><span>Token price</span><b id="labPrice">$0.00001000</b></div>
+        <div class="lab__row"><span>Your bag is worth</span><b class="lab__big" id="labValue">$100</b></div>
+        <p class="lab__disc">1,000,000,000 supply · price = market cap ÷ supply. Entertainment only.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ROADMAP ==================== -->
+<section class="section section--tint" id="roadmap">
   <div class="wrap">
     <div class="head">
       <span class="kicker">// the plan</span>
-      <h2>the roadmeow</h2>
+      <h2>Roadmap</h2>
       <p class="head__sub">(it's a meme coin. these are mostly jokes. mostly.)</p>
     </div>
 
     <ol class="road">
       <li class="phase">
-        <span class="phase__num">01</span>
-        <div>
-          <span class="phase__tag">phase 01 — wake up</span>
-          <h3>open eyes, launch, cry a little</h3>
+        <span class="phase__dot"></span>
+        <div class="phase__body">
+          <div class="phase__top"><span class="phase__n">Phase 01</span><span class="status status--done">done</span></div>
+          <h3>Wake up</h3>
           <p>Cat opens eyes. Launches on pump.fun. Sheds one proud tear. Takes a fourteen-hour victory nap.</p>
         </div>
       </li>
       <li class="phase">
-        <span class="phase__num">02</span>
-        <div>
-          <span class="phase__tag">phase 02 — meme</span>
-          <h3>flood every timeline</h3>
+        <span class="phase__dot"></span>
+        <div class="phase__body">
+          <div class="phase__top"><span class="phase__n">Phase 02</span><span class="status status--live">live</span></div>
+          <h3>Flood every timeline</h3>
           <p>Shitpost until unavoidable. Raid the timeline. Turn every red candle into a green-candle meme.</p>
         </div>
       </li>
       <li class="phase">
-        <span class="phase__num">03</span>
-        <div>
-          <span class="phase__tag">phase 03 — herd up</span>
-          <h3>build the most emotional community on solana</h3>
-          <p>We cry together, we laugh together, we pump together. Diamond paws only, no panic selling.</p>
+        <span class="phase__dot"></span>
+        <div class="phase__body">
+          <div class="phase__top"><span class="phase__n">Phase 03</span><span class="status status--next">next</span></div>
+          <h3>Build the herd</h3>
+          <p>The most emotional community on Solana. We cry together, laugh together, and pump together.</p>
         </div>
       </li>
       <li class="phase">
-        <span class="phase__num">04</span>
-        <div>
-          <span class="phase__tag">phase 04 — valhalla</span>
-          <h3>the greenest god-candle on the chart</h3>
+        <span class="phase__dot"></span>
+        <div class="phase__body">
+          <div class="phase__top"><span class="phase__n">Phase 04</span><span class="status status--soon">valhalla</span></div>
+          <h3>The greenest god-candle</h3>
           <p>Bull Cat reaches escape velocity. Ascends. Becomes the mascot of every teary-eyed bull on the network.</p>
         </div>
       </li>
@@ -315,109 +350,100 @@
   </div>
 </section>
 
-<!-- ====================== HOW TO BUY ====================== -->
-<section class="section section--night" id="buy">
-  <div class="scanlines" aria-hidden="true"></div>
+<!-- ==================== PULL QUOTE ==================== -->
+<section class="quote">
   <div class="wrap">
-    <div class="head head--light">
+    <p class="quote__t">"I don't fear red candles.<br/>I cry <span class="grad">through</span> them."</p>
+    <span class="quote__by">— bull cat, probably</span>
+  </div>
+</section>
+
+<!-- ==================== HOW TO BUY ==================== -->
+<section class="section" id="buy">
+  <div class="wrap">
+    <div class="head">
       <span class="kicker">// four easy steps</span>
-      <h2>how to get some</h2>
+      <h2>How to get some</h2>
     </div>
 
     <div class="steps">
-      <div class="step">
-        <span class="step__num">1</span>
-        <h3>get a solana wallet</h3>
-        <p>Download Phantom or Solflare from the official site and set up a self-custody wallet.</p>
-      </div>
-      <div class="step">
-        <span class="step__num">2</span>
-        <h3>fund it with SOL</h3>
-        <p>Buy SOL on any major exchange and send it to your wallet, or buy directly in-app.</p>
-      </div>
-      <div class="step">
-        <span class="step__num">3</span>
-        <h3>open pump.fun</h3>
-        <p>Connect your wallet and paste the official Bull Cat contract address into the search.</p>
-      </div>
-      <div class="step">
-        <span class="step__num">4</span>
-        <h3>swap &amp; hodl</h3>
-        <p>Swap SOL for $BULLCAT, wipe a happy tear, and welcome to the herd.</p>
-      </div>
+      <div class="step"><span class="step__n">1</span><h3>Get a Solana wallet</h3><p>Download Phantom or Solflare from the official site and set up a self-custody wallet.</p></div>
+      <div class="step"><span class="step__n">2</span><h3>Fund it with SOL</h3><p>Buy SOL on any major exchange and send it to your wallet, or buy directly in-app.</p></div>
+      <div class="step"><span class="step__n">3</span><h3>Open pump.fun</h3><p>Connect your wallet and paste the official Bull Cat contract address into the search.</p></div>
+      <div class="step"><span class="step__n">4</span><h3>Swap &amp; hodl</h3><p>Swap SOL for $BULLCAT, wipe a happy tear, and welcome to the herd.</p></div>
     </div>
 
     <div class="buy__cta">
-      <a href="#" class="btn btn--green btn--lg" data-pump-link>launch on pump.fun ›</a>
+      <a href="#" class="btn btn--green btn--lg" data-pump-link>Launch on pump.fun ›</a>
       <span class="buy__hint">// the buy link goes live the moment we launch</span>
     </div>
   </div>
 </section>
 
-<!-- ====================== FAQ ====================== -->
-<section class="section" id="faq">
-  <div class="wrap wrap--narrow">
+<!-- ==================== LISTINGS ==================== -->
+<section class="section section--tint" id="links">
+  <div class="wrap">
     <div class="head">
-      <span class="kicker">// dry those eyes</span>
-      <h2>furrequently asked</h2>
+      <span class="kicker">// verify everything</span>
+      <h2>Track &amp; follow</h2>
+      <p class="head__sub">Every link goes live at launch. Bookmark the official ones and verify the CA before you trade.</p>
     </div>
 
-    <div class="faq">
-      <details class="faq__item" open>
-        <summary>what is The Bull Cat?</summary>
-        <p>$BULLCAT is a community memecoin on Solana built around Bull Cat — a crying kitten in a bull helmet who turns his tears into green candles. A meme, a mascot, and a family in one.</p>
-      </details>
-      <details class="faq__item">
-        <summary>is there a tax?</summary>
-        <p>No. Buy and sell tax are both zero. What you swap is what you hold.</p>
-      </details>
-      <details class="faq__item">
-        <summary>where does it launch?</summary>
-        <p>Bull Cat launches fairly on pump.fun. No presale, no team allocation — everyone gets in on the same terms.</p>
-      </details>
-      <details class="faq__item">
-        <summary>how do i avoid fakes?</summary>
-        <p>Only trust the contract address posted on our official X. If an address shows up anywhere else, treat it as a scam.</p>
-      </details>
-      <details class="faq__item">
-        <summary>is this financial advice?</summary>
-        <p>Absolutely not. $BULLCAT has no intrinsic value and no expectation of return. Bull Cat is here for the memes and the community. Only spend what you can afford to lose.</p>
-      </details>
+    <div class="links">
+      <a href="#" class="lcard" data-pump-link><span class="lcard__k">trade</span><b>pump.fun</b><span class="lcard__d">the native launch pool</span></a>
+      <a href="#" class="lcard" data-chart-link><span class="lcard__k">chart</span><b>Dexscreener</b><span class="lcard__d">price, volume, liquidity</span></a>
+      <a href="#" class="lcard" data-solscan><span class="lcard__k">explorer</span><b>Solscan</b><span class="lcard__d">mint, supply, holders</span></a>
+      <a href="#" class="lcard" data-x-link><span class="lcard__k">social</span><b>X / Twitter</b><span class="lcard__d">announcements + the CA</span></a>
+      <a href="#" class="lcard" data-tg-link><span class="lcard__k">community</span><b>Telegram</b><span class="lcard__d">where the herd gathers</span></a>
+      <a href="#buy" class="lcard lcard--accent"><span class="lcard__k">start</span><b>Buy $BULLCAT</b><span class="lcard__d">four easy steps ›</span></a>
     </div>
   </div>
 </section>
 
-<!-- ====================== JOIN ====================== -->
-<section class="section section--night join">
-  <div class="scanlines" aria-hidden="true"></div>
+<!-- ==================== FAQ ==================== -->
+<section class="section" id="faq">
+  <div class="wrap wrap--narrow">
+    <div class="head">
+      <span class="kicker">// dry those eyes</span>
+      <h2>Frequently asked</h2>
+    </div>
+    <div class="faq">
+      <details class="faq__item" open><summary>What is The Bull Cat?</summary><p>$BULLCAT is a community memecoin on Solana built around Bull Cat — a crying kitten in a bull helmet who turns his tears into green candles. A meme, a mascot, and a family in one.</p></details>
+      <details class="faq__item"><summary>Is there a tax?</summary><p>No. Buy and sell tax are both zero. What you swap is what you hold.</p></details>
+      <details class="faq__item"><summary>Where does it launch?</summary><p>Bull Cat launches fairly on pump.fun. No presale, no team allocation — everyone gets in on the same terms.</p></details>
+      <details class="faq__item"><summary>How do I avoid fakes?</summary><p>Only trust the contract address posted on our official X. If an address shows up anywhere else, treat it as a scam.</p></details>
+      <details class="faq__item"><summary>Is this financial advice?</summary><p>Absolutely not. $BULLCAT has no intrinsic value and no expectation of return. Bull Cat is here for the memes and the community. Only spend what you can afford to lose.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== JOIN ==================== -->
+<section class="section section--dark join">
+  <div class="scan" aria-hidden="true"></div>
   <div class="wrap join__inner">
-    <img src="assets/bullcatlogo.png" alt="Bull Cat" class="join__cat" />
+    <img src="assets/bullcatlogo.png" alt="Bull Cat" class="join__cat" data-parallax="14" />
     <div>
       <span class="kicker">// long live bull cat</span>
-      <h2>we cry together.<br/>we <span class="mark">pump</span> together.</h2>
+      <h2>We cry together.<br/>We <span class="grad">pump</span> together.</h2>
       <p>Follow Bull Cat, join the herd, and be there for the greenest god-candle on the chart.</p>
       <div class="join__actions">
-        <a href="#" class="btn btn--outline" data-x-link>
-          <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M18.244 2H21.5l-7.5 8.57L23 22h-6.94l-5.43-7.1L4.4 22H1.14l8.02-9.17L1 2h7.11l4.9 6.48L18.244 2Zm-1.22 18h1.92L7.06 4H5l12.02 16Z"/></svg>
-          follow on X
+        <a href="#" class="btn btn--ghost" data-x-link>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M18.244 2H21.5l-7.5 8.57L23 22h-6.94l-5.43-7.1L4.4 22H1.14l8.02-9.17L1 2h7.11l4.9 6.48L18.244 2Zm-1.22 18h1.92L7.06 4H5l12.02 16Z"/></svg>
+          Follow on X
         </a>
-        <a href="#buy" class="btn btn--green">buy $BULLCAT ›</a>
+        <a href="#buy" class="btn btn--green">Buy $BULLCAT ›</a>
       </div>
     </div>
   </div>
 </section>
 </main>
 
-<!-- ====================== FOOTER ====================== -->
+<!-- ==================== FOOTER ==================== -->
 <footer class="footer">
   <div class="wrap footer__inner">
-    <a href="#top" class="brand"><img src="assets/bullcatlogo.png" alt="" class="brand__logo" /><span class="brand__name">BULL<span class="brand__slash">/</span>CAT</span></a>
-    <p class="footer__disc">
-      $BULLCAT is a meme coin with no intrinsic value or expectation of financial
-      return. There is no formal team or roadmap. It is completely useless and for
-      entertainment purposes only. Nothing here is financial advice. please don't sue the cat.
-    </p>
-    <span class="footer__copy">© 2026 the bull cat // teary eyes, bullish heart.</span>
+    <a href="#top" class="brand"><img src="assets/bullcatlogo.png" alt="" class="brand__logo" /><span class="brand__name">Bull<span class="brand__dot">·</span>Cat</span></a>
+    <p class="footer__disc">$BULLCAT is a meme coin with no intrinsic value or expectation of financial return. There is no formal team or roadmap. It is completely useless and for entertainment purposes only. Nothing here is financial advice. Please don't sue the cat.</p>
+    <span class="footer__copy">© 2026 The Bull Cat · teary eyes, bullish heart.</span>
   </div>
 </footer>
 
