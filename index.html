@@ -51,8 +51,8 @@
       <a href="#market">Market</a>
       <a href="#about">Why</a>
       <a href="#flywheel">Flywheel</a>
+      <a href="#meme">Meme Lab</a>
       <a href="#tokenomics">Tokenomics</a>
-      <a href="#roadmap">Roadmap</a>
       <a href="#buy">Buy</a>
     </nav>
 
@@ -248,6 +248,68 @@
         <li class="fstep"><span class="fstep__n">03</span><div><h3>The herd pumps</h3><p>We buy together, meme together, raid the timeline together. Momentum builds.</p></div></li>
         <li class="fstep"><span class="fstep__n">04</span><div><h3>God-candle</h3><p>Tears become the greenest candle on the chart. Then the loop begins again.</p></div></li>
       </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MEME LAB ==================== -->
+<section class="section" id="meme">
+  <div class="wrap">
+    <div class="head">
+      <span class="kicker">// meme lab</span>
+      <h2>Forge your Bull Cat</h2>
+      <p class="head__sub">Type a prompt, hit generate. The cat stays exactly himself — you reskin his world, swap his hat and add his drip. Powered by fal.ai.</p>
+    </div>
+
+    <div class="meme">
+      <div class="meme__panel">
+        <div class="meme__ref">
+          <img src="assets/bullcatt.png" alt="Bull Cat reference image" id="memeRef" crossorigin="anonymous" />
+          <span class="meme__reftag"><span class="live-dot"></span> reference · locked</span>
+        </div>
+
+        <label class="meme__label" for="memePrompt">Your prompt</label>
+        <textarea id="memePrompt" class="meme__input" rows="3" placeholder="e.g. on the moon at night, wearing black sunglasses and a thick gold chain"></textarea>
+
+        <div class="meme__chips" id="memeChips">
+          <button type="button" class="chip" data-add="wearing cool black sunglasses">sunglasses</button>
+          <button type="button" class="chip" data-add="wearing a red silk necktie">necktie</button>
+          <button type="button" class="chip" data-add="wearing a thick gold chain necklace">gold chain</button>
+          <button type="button" class="chip" data-add="wearing a luxury gold wristwatch">watch</button>
+          <button type="button" class="chip" data-add="wearing a royal golden crown">crown</button>
+          <button type="button" class="chip" data-add="wearing a cowboy hat">cowboy hat</button>
+          <button type="button" class="chip" data-add="on the moon with earth in the sky">moon</button>
+          <button type="button" class="chip" data-add="in a neon cyberpunk city at night">cyberpunk</button>
+          <button type="button" class="chip" data-add="with a green matrix code background">matrix</button>
+        </div>
+
+        <button class="btn btn--green btn--lg meme__go" id="memeGo" data-magnetic>Generate ›</button>
+        <p class="meme__note" id="memeNote" role="status"></p>
+      </div>
+
+      <div class="meme__stage">
+        <div class="meme__result" id="memeResult">
+          <div class="meme__placeholder" id="memePlaceholder">
+            <img src="assets/bullcatt.png" alt="" class="meme__ghost" />
+            <span>Your meme appears here</span>
+          </div>
+        </div>
+        <div class="meme__actions" id="memeActions" hidden>
+          <a class="btn btn--ghost btn--sm" id="memeDownload" download="bullcat-meme.jpg" target="_blank" rel="noopener">Download</a>
+          <button type="button" class="btn btn--ghost btn--sm" id="memeAgain">Generate again</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="meme__guide">
+      <h3>What you can change with a prompt</h3>
+      <div class="meme__ggrid">
+        <div class="gcard"><b>Background &amp; scene</b><p>Moon, neon city, matrix rain, beach, boardroom, deep space — describe any world.</p></div>
+        <div class="gcard"><b>The hat / helmet</b><p>Viking, cowboy, crown, beanie, cap… and it always keeps the bull horns.</p></div>
+        <div class="gcard"><b>Accessories</b><p>Sunglasses, necktie, necklace or gold chain, wristwatch, earrings, a cigar.</p></div>
+        <div class="gcard"><b>Mood &amp; style</b><p>Lighting, colours, weather and vibe — from cozy sunset to god-candle green.</p></div>
+      </div>
+      <p class="meme__locked"><b>Always locked:</b> the cat's face, teary eyes, body and pose — and the bull horns on every hat. That part is non-negotiable.</p>
     </div>
   </div>
 </section>
@@ -456,5 +518,6 @@
 </footer>
 
 <script src="script.js"></script>
+<script src="meme.js"></script>
 </body>
 </html>

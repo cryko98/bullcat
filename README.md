@@ -18,19 +18,43 @@ on-chain-terminal functionality. Highlights:
 - Animated **flywheel** (tears → hold → pump → god-candle loop)
 - **Dream calculator** — pick a target market cap, get token price and bag value
 - Tokenomics with count-up + copy-to-clipboard contract address
+- **Meme Lab** — fal.ai image generator that reskins the cat from a prompt
 - Timeline **roadmap** with status badges, listings grid, FAQ
 
 ## Stack
 
-Plain, dependency-free static site — HTML, CSS and vanilla JavaScript. Loads
-instantly and hosts anywhere (GitHub Pages, Vercel, Netlify, Cloudflare Pages).
+Static HTML / CSS / vanilla JS front end, plus two tiny serverless functions
+(`/api`) that proxy fal.ai. The page itself hosts anywhere; the Meme Lab needs a
+host that runs serverless functions (Vercel, Netlify, Cloudflare Pages).
 
 ```
-index.html    markup and content
-styles.css    warm layered design system
-script.js     boot, progress, parallax, count-up, calculator, copy, reveal, menu
-assets/       transparent logo / character art (also used as favicon)
+index.html      markup and content
+styles.css      warm layered design system
+script.js       boot, progress, parallax, count-up, calculator, copy, reveal, menu
+meme.js         Meme Lab client (prompt → /api → result)
+api/generate.js serverless: submit a fal.ai job (reads FAL_KEY)
+api/status.js   serverless: poll the job and return the image
+assets/         transparent logo / character art (also used as favicon)
 ```
+
+## Meme Lab (fal.ai)
+
+The generator uses the cat logo as a **locked reference image** and edits it with
+[FLUX Kontext](https://fal.ai/models/fal-ai/flux-pro/kontext) on fal.ai, so the
+cat's face, body and crying expression stay identical while the prompt changes the
+background, the hat (always given bull horns) and accessories.
+
+To make it live:
+
+1. Create a fal.ai account and API key.
+2. Deploy the repo to a serverless host (Vercel is easiest — it picks up `/api`
+   automatically) and set an environment variable **`FAL_KEY`** to your key.
+3. That's it — the front end calls `/api/generate` and `/api/status`; the key
+   never touches the browser. Until `FAL_KEY` is set, the Meme Lab shows a
+   friendly "not live yet" message instead of erroring.
+
+The identity + bull-horn constraints live in `meme.js` (`LOCK` / `RENDER`); the
+model id lives in both `api/*.js` files if you ever want to swap it.
 
 ## Run locally
 
@@ -50,6 +74,7 @@ Fill these in when the token goes live:
    matching button/card wires up automatically; until then they stay inert.
 2. **Contract address** — replace the `data-ca` value on `#caText` in
    `index.html` (and its visible text) with the real CA.
+3. **Meme Lab** — set the `FAL_KEY` environment variable on your host (see below).
 
 ## Disclaimer
 

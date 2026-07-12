@@ -1,0 +1,155 @@
+/* The Bull Cat — Meme Lab
+   ---------------------------------------------------------
+   Talks only to the site's own /api endpoints, which proxy fal.ai with a
+   server-side FAL_KEY. The cat logo is the locked reference image; prompts
+   only reskin the world / hat / accessories. Bull horns are always enforced.
+   -------------------------------------------------------- */
+(function () {
+  const go = document.getElementById("memeGo");
+  if (!go) return;
+
+  const promptEl = document.getElementById("memePrompt");
+  const chips = document.getElementById("memeChips");
+  const note = document.getElementById("memeNote");
+  const result = document.getElementById("memeResult");
+  const placeholder = document.getElementById("memePlaceholder");
+  const actions = document.getElementById("memeActions");
+  const dl = document.getElementById("memeDownload");
+  const again = document.getElementById("memeAgain");
+  const refImg = document.getElementById("memeRef");
+
+  // Identity + horns lock, wrapped around whatever the user types.
+  const LOCK =
+    "This is Bull Cat: a chubby crying cat with pale cream-white fur, big glossy teary eyes, " +
+    "a small pink nose and whiskers, wearing a horned helmet. Keep the cat's face, crying " +
+    "teary-eyed expression, fur, chubby body shape and sitting pose EXACTLY the same and fully " +
+    "recognisable — do not restyle or replace the cat. The cat must ALWAYS wear a hat or helmet " +
+    "that has large curved BULL HORNS attached; if a hat without horns is requested, add bull " +
+    "horns to it anyway. ";
+  const RENDER =
+    " Keep it a high-quality, crisp, cute 3D character render with soft studio lighting, the cat " +
+    "centred and fully in frame.";
+
+  const buildPrompt = (u) => {
+    u = (u || "").trim();
+    const change = u ? "Apply these changes: " + u + "." : "Give him a fresh, clean studio background.";
+    return LOCK + change + RENDER;
+  };
+
+  /* ---- Reference image: composite onto white, downscale, to data URL ---- */
+  let refPromise = null;
+  const getRef = () => {
+    if (refPromise) return refPromise;
+    refPromise = new Promise((resolve, reject) => {
+      const done = () => {
+        try {
+          const S = 640;
+          const c = document.createElement("canvas");
+          c.width = S; c.height = S;
+          const x = c.getContext("2d");
+          x.fillStyle = "#ffffff"; x.fillRect(0, 0, S, S);
+          const nw = refImg.naturalWidth || 1080, nh = refImg.naturalHeight || 1080;
+          const s = Math.min(S / nw, S / nh);
+          const w = nw * s, h = nh * s;
+          x.drawImage(refImg, (S - w) / 2, (S - h) / 2, w, h);
+          resolve(c.toDataURL("image/jpeg", 0.9));
+        } catch (e) { reject(e); }
+      };
+      if (refImg.complete && refImg.naturalWidth) done();
+      else { refImg.addEventListener("load", done, { once: true }); refImg.addEventListener("error", reject, { once: true }); }
+    });
+    return refPromise;
+  };
+
+  /* ---- Chips append to the prompt ---- */
+  chips && chips.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-add]");
+    if (!b) return;
+    const add = b.dataset.add;
+    const cur = promptEl.value.trim();
+    if (cur.toLowerCase().includes(add.toLowerCase())) return;
+    promptEl.value = cur ? cur.replace(/[.,\s]*$/, "") + ", " + add : add;
+    promptEl.focus();
+  });
+
+  /* ---- Loading state ---- */
+  const MSGS = [
+    "summoning bull cat…", "sharpening the horns…", "wiping the tears…",
+    "painting the scene…", "adding the drip…", "rendering the god-candle…", "almost there…",
+  ];
+  let msgTimer = null, busy = false;
+  const setBusy = (on) => {
+    busy = on;
+    go.disabled = on;
+    go.textContent = on ? "Generating…" : "Generate ›";
+    result.classList.toggle("is-loading", on);
+    if (on) {
+      let i = 0;
+      note.textContent = MSGS[0];
+      note.className = "meme__note is-info";
+      msgTimer = setInterval(() => { i = (i + 1) % MSGS.length; note.textContent = MSGS[i]; }, 2600);
+    } else if (msgTimer) { clearInterval(msgTimer); msgTimer = null; }
+  };
+
+  const fail = (msg) => {
+    setBusy(false);
+    note.textContent = msg;
+    note.className = "meme__note is-error";
+  };
+
+  const showResult = async (url) => {
+    setBusy(false);
+    note.textContent = "";
+    note.className = "meme__note";
+    placeholder && (placeholder.hidden = true);
+    let img = result.querySelector(".meme__img");
+    if (!img) { img = document.createElement("img"); img.className = "meme__img"; img.alt = "Generated Bull Cat meme"; result.appendChild(img); }
+    img.src = url;
+    actions.hidden = false;
+    // Force a real download (cross-origin) via blob when possible.
+    dl.href = url; dl.removeAttribute("download");
+    try {
+      const blob = await (await fetch(url)).blob();
+      const obj = URL.createObjectURL(blob);
+      dl.href = obj; dl.setAttribute("download", "bullcat-meme.jpg"); dl.removeAttribute("target");
+    } catch (_) { /* keep direct link (opens in new tab) */ }
+  };
+
+  /* ---- Poll the queue job ---- */
+  const poll = async (id, tries) => {
+    if (tries > 45) { fail("This one took too long — please try again."); return; }
+    try {
+      const r = await fetch("/api/status?id=" + encodeURIComponent(id));
+      const d = await r.json().catch(() => ({}));
+      if (r.status === 501) { fail(d.error || "The generator isn't configured yet."); return; }
+      if (d.status === "COMPLETED" && d.image) { showResult(d.image); return; }
+      if (d.status === "FAILED" || d.status === "ERROR") { fail("Generation failed — try a different prompt."); return; }
+      setTimeout(() => poll(id, tries + 1), 1600);
+    } catch (_) { setTimeout(() => poll(id, tries + 1), 2200); }
+  };
+
+  /* ---- Generate ---- */
+  const generate = async () => {
+    if (busy) return;
+    setBusy(true);
+    let ref;
+    try { ref = await getRef(); } catch (_) { fail("Couldn't load the reference image."); return; }
+    try {
+      const r = await fetch("/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: buildPrompt(promptEl.value), image: ref }),
+      });
+      const d = await r.json().catch(() => ({}));
+      if (r.status === 501) { fail(d.error || "The meme generator isn't live yet — check back at launch."); return; }
+      if (!r.ok || !d.id) { fail(d.error || "Couldn't start the generation. Try again."); return; }
+      poll(d.id, 0);
+    } catch (_) {
+      fail("Network error — is the generator API deployed?");
+    }
+  };
+
+  go.addEventListener("click", generate);
+  again && again.addEventListener("click", () => { actions.hidden = true; promptEl.focus(); note.textContent = ""; });
+  promptEl.addEventListener("keydown", (e) => { if ((e.metaKey || e.ctrlKey) && e.key === "Enter") generate(); });
+})();

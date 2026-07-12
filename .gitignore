@@ -10,3 +10,8 @@ desktop.ini
 
 # Node (not used, but just in case)
 node_modules/
+
+# Secrets / local env
+.env
+.env.local
+.vercel
