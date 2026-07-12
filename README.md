@@ -6,6 +6,13 @@ crying kitten. **Teary eyes, bullish heart. Time to send it.**
 Official landing page for the $BULLCAT memecoin, launching on
 [pump.fun](https://pump.fun).
 
+## Design
+
+Cream editorial zine meets dark on-chain terminal — a monospace-driven system
+(JetBrains Mono / Space Mono headings, Inter body) with a boot-up intro,
+scanline terminal sections, `> key : value` command blocks, live-style stat
+readouts with count-up, and alternating warm-cream / terminal-black bands.
+
 ## Stack
 
 Plain, dependency-free static site — HTML, CSS and vanilla JavaScript. Loads
@@ -13,8 +20,8 @@ instantly and hosts anywhere (GitHub Pages, Vercel, Netlify, Cloudflare Pages).
 
 ```
 index.html    markup and content
-styles.css    warm "sticker" design system
-script.js     mobile menu, copy-address, scroll reveal
+styles.css    cream-editorial x terminal design system
+script.js     boot intro, mobile menu, copy-address, count-up, scroll reveal
 assets/       logo + character art (also used as favicon)
 ```
 
