@@ -4,7 +4,7 @@
 // server-side. A legacy ?id= fallback reconstructs the base-app path.
 
 const FAL_KEY = process.env.FAL_KEY;
-const MODEL = "fal-ai/flux-pro/kontext";
+const MODEL = "fal-ai/nano-banana/edit";
 // Base app (queue lives here, WITHOUT the endpoint subpath) e.g. fal-ai/flux-pro
 const BASE_APP = MODEL.split("/").slice(0, 2).join("/");
 

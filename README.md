@@ -40,9 +40,10 @@ assets/         transparent logo / character art (also used as favicon)
 ## Meme Lab (fal.ai)
 
 The generator uses the cat logo as a **locked reference image** and edits it with
-[FLUX Kontext](https://fal.ai/models/fal-ai/flux-pro/kontext) on fal.ai, so the
-cat's face, body and crying expression stay identical while the prompt changes the
-background, the hat (always given bull horns) and accessories.
+[nano-banana](https://fal.ai/models/fal-ai/nano-banana/edit) (Gemini 2.5 Flash
+Image) on fal.ai, chosen because it keeps the input subject identical while only
+changing the background and adding accessories. The prompt (in `meme.js`) forbids
+re-posing or restyling the cat and forces bull horns onto any hat.
 
 To make it live:
 

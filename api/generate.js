@@ -8,7 +8,9 @@
 // verbatim instead of reconstructing them.
 
 const FAL_KEY = process.env.FAL_KEY;
-const MODEL = "fal-ai/flux-pro/kontext";
+// Gemini 2.5 Flash Image ("nano-banana") edit — strong at keeping the input
+// subject identical while only changing background / adding accessories.
+const MODEL = "fal-ai/nano-banana/edit";
 
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
@@ -36,10 +38,7 @@ module.exports = async function handler(req, res) {
       headers: { Authorization: `Key ${FAL_KEY}`, "Content-Type": "application/json" },
       body: JSON.stringify({
         prompt,
-        image_url: image,
-        guidance_scale: 3.5,
-        output_format: "jpeg",
-        safety_tolerance: "6", // most permissive — a crying cat shouldn't be blocked
+        image_urls: [image], // nano-banana takes an array of reference images
       }),
     });
 

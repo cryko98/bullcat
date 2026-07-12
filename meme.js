@@ -18,22 +18,21 @@
   const again = document.getElementById("memeAgain");
   const refImg = document.getElementById("memeRef");
 
-  // Identity + horns lock, wrapped around whatever the user types.
+  // Identity lock: keep the reference cat pixel-for-pixel, change only what's asked.
   const LOCK =
-    "This is Bull Cat: a chubby crying cat with pale cream-white fur, big glossy teary eyes, " +
-    "a small pink nose and whiskers, wearing a horned helmet. Keep the cat's face, crying " +
-    "teary-eyed expression, fur, chubby body shape and sitting pose EXACTLY the same and fully " +
-    "recognisable — do not restyle or replace the cat. The cat must ALWAYS wear a hat or helmet " +
-    "that has large curved BULL HORNS attached; if a hat without horns is requested, add bull " +
-    "horns to it anyway. ";
-  const RENDER =
-    " Keep it a high-quality, crisp, cute 3D character render with soft studio lighting, the cat " +
-    "centred and fully in frame.";
+    "This is a picture of Bull Cat: a chubby crying cream-white cat wearing a brown horned " +
+    "aviator cap, sitting and facing the camera. KEEP THE CAT EXACTLY AS IN THIS REFERENCE " +
+    "IMAGE — the same face, the same crying teary eyes, the same pink nose, whiskers, fur, " +
+    "body shape, sitting pose, size, framing and the same art style. Do NOT redraw, restyle, " +
+    "re-pose, zoom or replace the cat, and keep his horned cap unless a different hat is " +
+    "explicitly requested (and every hat must keep the bull horns). Change ONLY the following, " +
+    "and leave everything else pixel-identical to the reference: ";
+  const TAIL = " Do not alter anything that was not requested.";
 
   const buildPrompt = (u) => {
     u = (u || "").trim();
-    const change = u ? "Apply these changes: " + u + "." : "Give him a fresh, clean studio background.";
-    return LOCK + change + RENDER;
+    const change = u ? u + "." : "place him on a fresh, clean studio background.";
+    return LOCK + change + TAIL;
   };
 
   /* ---- Reference image: composite onto white, downscale, to data URL ---- */
