@@ -4,7 +4,7 @@
    -------------------------------------------------------- */
 const CA = "G9j8WWDeJXZdvwQgP82ooDuHmpc3Gy8NCSins71Lpump";
 const CONFIG = {
-  xUrl: "",       // "https://x.com/thebullcat"
+  xUrl: "https://x.com/TheBULLCATTTT",
   pumpUrl: "https://pump.fun/coin/" + CA,
   chartUrl: "https://dexscreener.com/solana/" + CA,
   solscanUrl: "https://solscan.io/token/" + CA,
