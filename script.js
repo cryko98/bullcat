@@ -2,11 +2,12 @@
    ---------------------------------------------------------
    Fill these in when socials / launch go live.
    -------------------------------------------------------- */
+const CA = "G9j8WWDeJXZdvwQgP82ooDuHmpc3Gy8NCSins71Lpump";
 const CONFIG = {
   xUrl: "",       // "https://x.com/thebullcat"
-  pumpUrl: "",    // "https://pump.fun/coin/<address>"
-  chartUrl: "",   // "https://dexscreener.com/solana/<pair>"
-  solscanUrl: "", // "https://solscan.io/token/<mint>"
+  pumpUrl: "https://pump.fun/coin/" + CA,
+  chartUrl: "https://dexscreener.com/solana/" + CA,
+  solscanUrl: "https://solscan.io/token/" + CA,
   tgUrl: "",      // "https://t.me/thebullcat"
 };
 const SUPPLY = 1_000_000_000;
