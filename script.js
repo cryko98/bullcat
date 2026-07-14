@@ -258,9 +258,63 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!reduce && W && H) anim();
   })();
 
-  /* ---- Market terminal: flip status to "online (pre-launch)" ---- */
-  const mkt = document.getElementById("mktStatus");
-  if (mkt) setTimeout(() => { mkt.textContent = "● pre-launch"; mkt.classList.add("ok"); }, 1400);
+  /* ---- Hero CA: copy on click ---- */
+  const heroCa = document.getElementById("heroCa");
+  const heroCaVal = document.getElementById("heroCaVal");
+  if (heroCa && heroCaVal && CA) {
+    heroCaVal.textContent = CA.slice(0, 6) + "…" + CA.slice(-6);
+    heroCa.addEventListener("click", async () => {
+      try { await navigator.clipboard.writeText(CA); } catch (_) {}
+      const prev = heroCaVal.textContent;
+      heroCaVal.textContent = "copied!";
+      setTimeout(() => { heroCaVal.textContent = prev; }, 1400);
+    });
+  }
+
+  /* ---- Market terminal: live data from Dexscreener (free, CORS-open) ---- */
+  (function market() {
+    const badge = document.getElementById("mktStatus");
+    const cells = [...document.querySelectorAll(".terminal__grid .tcell")];
+    const setBadge = (t, ok) => { if (badge) { badge.textContent = t; badge.classList.toggle("ok", !!ok); } };
+    if (!cells.length) return;
+    if (!CA) { setBadge("● pre-launch", true); return; }
+
+    const val = (c) => c.querySelector(".tcell__v");
+    const sub = (c) => c.querySelector(".tcell__d");
+    const money = (n) => {
+      n = +n || 0;
+      if (n >= 1e9) return "$" + (n / 1e9).toFixed(2) + "B";
+      if (n >= 1e6) return "$" + (n / 1e6).toFixed(2) + "M";
+      if (n >= 1e3) return "$" + (n / 1e3).toFixed(1) + "K";
+      return "$" + n.toFixed(0);
+    };
+    const price = (n) => { n = +n || 0; return "$" + (n >= 1 ? n.toFixed(2) : n < 1e-4 ? n.toFixed(8) : n.toFixed(6)); };
+
+    const load = async () => {
+      try {
+        const r = await fetch("https://api.dexscreener.com/latest/dex/tokens/" + CA, { cache: "no-store" });
+        const d = await r.json();
+        const pairs = (d.pairs || []).filter((p) => p.chainId === "solana");
+        if (!pairs.length) { setBadge("● indexing…", false); return; }
+        const p = pairs.sort((a, b) => (b.liquidity?.usd || 0) - (a.liquidity?.usd || 0))[0];
+        val(cells[0]).textContent = price(p.priceUsd);
+        val(cells[1]).textContent = money(p.volume?.h24);
+        val(cells[2]).textContent = money(p.liquidity?.usd);
+        val(cells[3]).textContent = money(p.marketCap ?? p.fdv);
+        const ch = +(p.priceChange?.h24 ?? 0);
+        sub(cells[0]).textContent = (ch >= 0 ? "+" : "") + ch.toFixed(1) + "% · 24h";
+        sub(cells[0]).style.color = ch >= 0 ? "var(--green-2)" : "#d08466";
+        sub(cells[1]).textContent = "last 24 hours";
+        sub(cells[2]).textContent = "pool · " + (p.dexId || "dex");
+        sub(cells[3]).textContent = "fully diluted";
+        setBadge("● live", true);
+      } catch (_) {
+        setBadge("● offline", false);
+      }
+    };
+    load();
+    setInterval(load, 30000);
+  })();
 
   /* ---- Dream calculator ---- */
   const bagInput = document.getElementById("labBag");
