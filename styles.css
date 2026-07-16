@@ -265,6 +265,23 @@ b{ font-weight:700; }
 .tlink:hover{ background:rgba(255,255,255,.06); }
 .tlink--solid{ background:linear-gradient(135deg,var(--green-2),var(--green-d)); border-color:transparent; }
 
+/* ---------- Verified / listed row ---------- */
+.verified{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:.7rem; margin-top:1.8rem; }
+.verified__l{ font-family:var(--f-mono); font-size:.76rem; text-transform:uppercase; letter-spacing:.09em; color:var(--ink-3); }
+.vbadge{ display:inline-flex; align-items:center; gap:.5rem; font-family:var(--f-mono); font-weight:700; font-size:.86rem; color:var(--ink);
+  background:var(--card); border:1px solid var(--line); border-radius:999px; padding:.45rem .95rem; box-shadow:var(--sh-1);
+  transition:transform .15s, box-shadow .15s, border-color .15s; }
+.vbadge:hover{ transform:translateY(-2px); box-shadow:var(--sh-2); }
+.vbadge--cg{ border-color:rgba(141,198,63,.55); }
+.vbadge--cg:hover{ border-color:#8dc63f; }
+/* CoinGecko-style round green token mark */
+.cg-mark{ width:20px; height:20px; flex:none; border-radius:50%; position:relative;
+  background:radial-gradient(circle at 34% 30%, #bfe873, #6fae2e); box-shadow:inset 0 0 0 1px rgba(0,0,0,.08); }
+.cg-mark::after{ content:""; position:absolute; top:3.5px; right:3.5px; width:6px; height:6px; border-radius:50%;
+  background:#22303a; box-shadow:0 0 0 2px rgba(255,255,255,.9); }
+.lcard--cg b{ display:inline-flex; align-items:center; gap:.5rem; }
+.lcard--cg{ border-color:rgba(141,198,63,.4); }
+
 /* ---------- Cards / Why ---------- */
 .grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
 .card{ position:relative; background:var(--card); border:1px solid var(--line); border-radius:var(--r);
