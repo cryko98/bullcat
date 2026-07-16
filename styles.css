@@ -438,6 +438,9 @@ b{ font-weight:700; }
 .mkcard b{ font-family:var(--f-disp); font-weight:700; font-size:1.12rem; }
 .mkcard--link{ color:inherit; border-color:rgba(199,155,84,.4); grid-column:1 / -1; }
 .mkcard--link:hover{ border-color:var(--gold); }
+.mkcard--cg{ border-color:rgba(141,198,63,.45); }
+.mkcard--cg:hover{ border-color:#8dc63f; }
+.mkcard--cg b{ display:inline-flex; align-items:center; gap:.55rem; }
 
 .proof{ display:flex; flex-direction:column; align-items:center; gap:.7rem; margin:2rem auto 0; }
 .proof__thumb{ position:relative; cursor:zoom-in; padding:0; width:168px; height:210px; overflow:hidden;
