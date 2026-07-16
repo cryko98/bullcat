@@ -429,6 +429,17 @@ b{ font-weight:700; }
 .phase h3{ font-family:var(--f-disp); font-weight:700; font-size:1.2rem; margin-bottom:.3rem; }
 .phase p{ color:var(--ink-2); font-size:.96rem; }
 
+/* ---------- Marketing plans ---------- */
+.mk{ display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; max-width:780px; margin-inline:auto; }
+.mkcard{ display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:1.1rem 1.4rem; box-shadow:var(--sh-1);
+  transition:transform .2s, box-shadow .2s; }
+.mkcard:hover{ transform:translateY(-3px); box-shadow:var(--sh-2); }
+.mkcard b{ font-family:var(--f-disp); font-weight:700; font-size:1.12rem; }
+.mkcard:last-child{ grid-column:1 / -1; }
+.status--today{ display:inline-flex; align-items:center; gap:.4rem; background:rgba(47,125,84,.15); color:var(--green-d); }
+.status--talks{ background:rgba(199,155,84,.2); color:var(--gold-2); }
+
 /* ---------- Quote ---------- */
 .quote{ background:var(--paper-2); padding:5rem 0; text-align:center; border-block:1px solid var(--line); }
 .quote__t{ font-family:var(--f-disp); font-weight:700; font-size:clamp(1.8rem,5vw,3.3rem); letter-spacing:-.03em; line-height:1.08; }
@@ -517,6 +528,7 @@ b{ font-weight:700; }
   .tcell{ border-right:none; }
   .tokcard b{ font-size:2.2rem; }
   .meme__ggrid{ grid-template-columns:1fr; }
+  .mk{ grid-template-columns:1fr; }
   .seal{ display:none; }
   .hero__reveal{ width:min(340px,88vw); }
   .wm{ -webkit-text-stroke-width:1.5px; }
