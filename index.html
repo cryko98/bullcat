@@ -457,6 +457,16 @@
         <span class="status status--today"><span class="live-dot"></span> filed</span>
       </a>
     </div>
+
+    <div class="proof">
+      <button class="proof__thumb" id="llcProof" aria-label="Enlarge the BULLCAT LLC filing">
+        <img src="assets/photo_2026-07-16_11-49-28.jpg" alt="BULLCAT LLC — Wyoming Secretary of State filing detail" />
+        <span class="proof__zoom" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5Zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14Zm.5-7H9v2H7v1h2v2h1v-2h2V9h-2V7Z"/></svg>
+        </span>
+      </button>
+      <span class="proof__cap">BULLCAT LLC · Wyoming filing — tap to enlarge</span>
+    </div>
   </div>
 </section>
 
@@ -558,7 +568,13 @@
   </div>
 </footer>
 
-<script src="script.js"></script>
-<script src="meme.js"></script>
+<!-- Lightbox for the LLC proof -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Close">&times;</button>
+  <img src="" alt="BULLCAT LLC — Wyoming filing detail" id="lightboxImg" />
+</div>
+
+<script src="script.js?v=2"></script>
+<script src="meme.js?v=2"></script>
 </body>
 </html>

@@ -271,6 +271,32 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  /* ---- LLC proof lightbox (event delegation — timing-independent) ---- */
+  const lbClose = () => {
+    const lb = document.getElementById("lightbox");
+    if (!lb) return;
+    lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  };
+  document.addEventListener("click", (e) => {
+    const thumb = e.target.closest && e.target.closest("#llcProof");
+    if (thumb) {
+      const lb = document.getElementById("lightbox");
+      const lbImg = document.getElementById("lightboxImg");
+      const src = thumb.querySelector("img");
+      if (lb && lbImg) {
+        lbImg.src = src ? src.src : "";
+        lb.classList.add("open"); lb.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      }
+      return;
+    }
+    if (e.target.closest && (e.target.closest("#lightboxClose") || e.target.id === "lightbox")) lbClose();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") { const lb = document.getElementById("lightbox"); if (lb && lb.classList.contains("open")) lbClose(); }
+  });
+
   /* ---- Market terminal: live data from Dexscreener (free, CORS-open) ---- */
   (function market() {
     const badge = document.getElementById("mktStatus");
