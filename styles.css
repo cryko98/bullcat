@@ -436,7 +436,7 @@ b{ font-weight:700; }
   transition:transform .2s, box-shadow .2s; }
 .mkcard:hover{ transform:translateY(-3px); box-shadow:var(--sh-2); }
 .mkcard b{ font-family:var(--f-disp); font-weight:700; font-size:1.12rem; }
-.mkcard--link{ color:inherit; border-color:rgba(199,155,84,.4); }
+.mkcard--link{ color:inherit; border-color:rgba(199,155,84,.4); grid-column:1 / -1; }
 .mkcard--link:hover{ border-color:var(--gold); }
 .status--today{ display:inline-flex; align-items:center; gap:.4rem; background:rgba(47,125,84,.15); color:var(--green-d); }
 .status--talks{ background:rgba(199,155,84,.2); color:var(--gold-2); }
