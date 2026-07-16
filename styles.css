@@ -135,6 +135,10 @@ b{ font-weight:700; }
 .nav__links a{ font-family:var(--f-mono); font-size:.85rem; font-weight:400; color:var(--ink-2); position:relative; padding:.2rem 0; }
 .nav__links a::after{ content:""; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:var(--gold); transition:width .22s; }
 .nav__links a:hover{ color:var(--ink); } .nav__links a:hover::after{ width:100%; }
+.nav__links a.nav__hot{ color:var(--green-d); font-weight:700; background:rgba(47,125,84,.12);
+  border:1px solid rgba(47,125,84,.35); border-radius:999px; padding:.32rem .8rem; transition:background .15s, border-color .15s; }
+.nav__links a.nav__hot::after{ display:none; }
+.nav__links a.nav__hot:hover{ color:var(--green-d); background:rgba(47,125,84,.2); border-color:var(--green); }
 .nav__cta{ display:flex; align-items:center; gap:.55rem; }
 .nav__burger{ display:none; flex-direction:column; gap:5px; width:42px; height:42px; padding:11px;
   background:var(--card); border:1px solid var(--line); border-radius:11px; cursor:pointer; }
