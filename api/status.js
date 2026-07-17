@@ -8,7 +8,14 @@ const MODEL = "fal-ai/nano-banana/edit";
 // Base app (queue lives here, WITHOUT the endpoint subpath) e.g. fal-ai/flux-pro
 const BASE_APP = MODEL.split("/").slice(0, 2).join("/");
 
-const isFalUrl = (u) => typeof u === "string" && /^https:\/\/queue\.fal\.run\/[\w./-]+\/requests\/[\w-]+/.test(u);
+// Only our own model's queue request paths — never an arbitrary URL, so this
+// endpoint can't be used to proxy other fal APIs (or anything else) with our key.
+const ALLOWED_PREFIX = `https://queue.fal.run/${BASE_APP}/requests/`;
+const isFalUrl = (u) => {
+  if (typeof u !== "string" || !u.startsWith(ALLOWED_PREFIX)) return false;
+  const rest = u.slice(ALLOWED_PREFIX.length).split("?")[0];
+  return /^[\w-]{6,80}(\/status)?$/.test(rest);
+};
 
 module.exports = async function handler(req, res) {
   if (!FAL_KEY) {
@@ -18,12 +25,10 @@ module.exports = async function handler(req, res) {
 
   const q = req.query || {};
   let statusUrl = q.s;
-  let resultUrl = q.r;
 
-  // Fallback for older clients that only send the request id.
+  // Fallback for clients that only send the request id.
   if (!isFalUrl(statusUrl) && q.id && /^[\w-]{6,80}$/.test(q.id)) {
     statusUrl = `https://queue.fal.run/${BASE_APP}/requests/${q.id}/status`;
-    resultUrl = `https://queue.fal.run/${BASE_APP}/requests/${q.id}`;
   }
   // Safety net: the queue lives under the base app, so strip the endpoint
   // subpath if it ever shows up (…/flux-pro/kontext/requests → …/flux-pro/requests).

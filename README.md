@@ -54,8 +54,28 @@ To make it live:
    never touches the browser. Until `FAL_KEY` is set, the Meme Lab shows a
    friendly "not live yet" message instead of erroring.
 
-The identity + bull-horn constraints live in `meme.js` (`LOCK` / `RENDER`); the
+The identity + bull-horn constraints live in `meme.js` (`LOCK` / `TAIL`); the
 model id lives in both `api/*.js` files if you ever want to swap it.
+
+## Security
+
+- **No SSRF.** `/api/generate` only accepts an inline `data:image/...;base64` URI
+  for the reference image. URLs are rejected outright, so neither our server nor
+  fal can be pointed at internal hosts (e.g. `169.254.169.254`) or arbitrary
+  endpoints. `/api/status` only accepts our own model's `queue.fal.run` request
+  paths, so it can't be used to proxy other APIs with the key.
+- **Rate limiting.** `/api/generate` allows 3 generations per minute per IP
+  (`RATE_MAX` / `RATE_WINDOW_MS` in `api/generate.js`) and returns `429`.
+  ⚠️ This is in-memory and therefore **best-effort**: serverless instances are
+  ephemeral and can run in parallel, so it's a speed bump, not a hard cap. For a
+  strict guarantee (and real protection of your fal credits) back it with a
+  shared store such as Vercel KV / Upstash Redis, or put the endpoint behind auth.
+- **Security headers** ship in `vercel.json`: CSP, `X-Frame-Options: DENY`
+  (+ `frame-ancestors 'none'`), `X-Content-Type-Options: nosniff`,
+  `Referrer-Policy`, `Permissions-Policy`, and `no-store` on `/api/*`.
+  Note the CSP allows `'unsafe-inline'` for **styles** only (never scripts).
+- `package.json` pins `"type": "commonjs"` so the `/api` functions always load
+  as CommonJS regardless of any ambient `type: module` config.
 
 ## Run locally
 

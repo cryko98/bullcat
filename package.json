@@ -1,0 +1,7 @@
+{
+  "name": "bullcat",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Bull Cat ($BULLCAT) — static site + fal.ai meme generator functions",
+  "type": "commonjs"
+}
