@@ -96,6 +96,37 @@
     note.className = "meme__note is-error";
   };
 
+  /* ---- Cooldown: 3 memes per rolling hour, with a live countdown ---- */
+  const COOLDOWN_KEY = "bullcat_meme_cooldown";
+  let cooldownUntil = 0;
+  let cooldownTimer = null;
+  const startCooldown = (sec) => {
+    cooldownUntil = Date.now() + Math.max(1, sec) * 1000;
+    try { localStorage.setItem(COOLDOWN_KEY, String(cooldownUntil)); } catch (_) {}
+    clearInterval(cooldownTimer);
+    const tick = () => {
+      const left = Math.round((cooldownUntil - Date.now()) / 1000);
+      if (left <= 0) {
+        clearInterval(cooldownTimer); cooldownTimer = null; cooldownUntil = 0;
+        try { localStorage.removeItem(COOLDOWN_KEY); } catch (_) {}
+        go.disabled = false; go.textContent = "Generate ›";
+        note.textContent = "You're good to go — 3 fresh memes ready."; note.className = "meme__note is-info";
+        return;
+      }
+      const m = Math.floor(left / 60), s = left % 60;
+      go.disabled = true; go.textContent = "On cooldown";
+      note.textContent = `You've made your 3 memes — back in ${m}:${String(s).padStart(2, "0")}`;
+      note.className = "meme__note is-info";
+    };
+    tick();
+    cooldownTimer = setInterval(tick, 1000);
+  };
+  // Resume a countdown that was still running before a reload.
+  try {
+    const saved = +localStorage.getItem(COOLDOWN_KEY);
+    if (saved && saved > Date.now()) startCooldown(Math.round((saved - Date.now()) / 1000));
+  } catch (_) {}
+
   const showResult = async (url) => {
     setBusy(false);
     note.textContent = "";
@@ -135,6 +166,7 @@
   /* ---- Generate ---- */
   const generate = async () => {
     if (busy) return;
+    if (cooldownUntil > Date.now()) { startCooldown(Math.round((cooldownUntil - Date.now()) / 1000)); return; }
     setBusy(true);
     let ref;
     try { ref = await getRef(); } catch (_) { fail("Couldn't load the reference image."); return; }
@@ -146,6 +178,7 @@
       });
       const d = await r.json().catch(() => ({}));
       if (r.status === 501) { fail(d.error || "The meme generator isn't live yet — check back at launch."); return; }
+      if (r.status === 429) { setBusy(false); startCooldown(d.retryAfterSec || 3600); return; }
       if (!r.ok || !d.id) { fail(d.error || "Couldn't start the generation. Try again."); return; }
       poll(d, 0);
     } catch (_) {

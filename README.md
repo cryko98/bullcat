@@ -64,12 +64,16 @@ model id lives in both `api/*.js` files if you ever want to swap it.
   fal can be pointed at internal hosts (e.g. `169.254.169.254`) or arbitrary
   endpoints. `/api/status` only accepts our own model's `queue.fal.run` request
   paths, so it can't be used to proxy other APIs with the key.
-- **Rate limiting.** `/api/generate` allows 3 generations per minute per IP
-  (`RATE_MAX` / `RATE_WINDOW_MS` in `api/generate.js`) and returns `429`.
-  ⚠️ This is in-memory and therefore **best-effort**: serverless instances are
-  ephemeral and can run in parallel, so it's a speed bump, not a hard cap. For a
-  strict guarantee (and real protection of your fal credits) back it with a
-  shared store such as Vercel KV / Upstash Redis, or put the endpoint behind auth.
+- **Rate limiting.** `/api/generate` allows **3 generations per rolling hour,
+  per IP** (`RATE_MAX` / `RATE_WINDOW_MS` in `api/generate.js`), returns `429`
+  with `retryAfterSec`, and the UI shows a live countdown (persisted in
+  `localStorage` so it survives a reload).
+  - **Hard cap (recommended):** set `UPSTASH_REDIS_REST_URL` and
+    `UPSTASH_REDIS_REST_TOKEN` (free Upstash Redis). When present the limit is
+    stored in Redis, so it's durable and shared across all serverless instances.
+  - **Without Upstash** it falls back to an in-memory window — **best-effort**
+    only (resets on cold start, per-instance). Fine for casual abuse, not a
+    guarantee. Add Upstash for a true cap on your fal spend.
 - **Security headers** ship in `vercel.json`: CSP, `X-Frame-Options: DENY`
   (+ `frame-ancestors 'none'`), `X-Content-Type-Options: nosniff`,
   `Referrer-Policy`, `Permissions-Policy`, and `no-store` on `/api/*`.
