@@ -8,7 +8,7 @@ const CONFIG = {
   pumpUrl: "https://pump.fun/coin/" + CA,
   chartUrl: "https://dexscreener.com/solana/" + CA,
   solscanUrl: "https://solscan.io/token/" + CA,
-  tgUrl: "",      // "https://t.me/thebullcat"
+  tgUrl: "https://t.me/Thebullcatportal",
 };
 const SUPPLY = 1_000_000_000;
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
